@@ -7,28 +7,23 @@ function App() {
   const url = `https://swapi.dev/api/people`;
 
   const getCharacters = async () => {
-    for (const character of characters) {
-      const homeworldResponse = await character.homeworld;
-      const homeworld = await axios
-        .get(homeworldResponse)
-        .then((res) => res.data);
-      character.homeworld = homeworld.name;
-
-      setCharacters(character);
-      // console.log(character.species);
-    }
-
     axios
       .get(url)
       .then(({ data }) => setCharacters(data.results))
       .catch((error) => console.log(error));
+
+    for (const character of characters) {
+      const homeworldResponse = await character.homeworld;
+      const homeworld = await axios.get(homeworldResponse);
+      character.homeworld = homeworld.data.name;
+
+      setCharacters(character);
+    }
   };
 
   useEffect(() => {
     getCharacters();
   }, []);
-
-  console.log(characters);
 
   return (
     <div className="App">

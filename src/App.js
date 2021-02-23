@@ -1,25 +1,33 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
+import Table from "./components/Table";
 
 function App() {
   const [characters, setCharacters] = useState([]);
   const url = `https://swapi.dev/api/people`;
 
   const getCharacters = async () => {
-    axios
-      .get(url)
-      .then(({ data }) => setCharacters(data.results))
-      .catch((error) => console.log(error));
+    const charData = await axios.get(url);
 
-    for (const character of characters) {
-      const homeworldResponse = await character.homeworld;
+    for (const character of charData.data.results) {
+      const homeworldResponse = character.homeworld;
       const homeworld = await axios.get(homeworldResponse);
       character.homeworld = homeworld.data.name;
+
+      const speciesResponse = character.species;
+      // console.log(speciesResponse);
+      if (!speciesResponse) {
+        character.species = "Human";
+      } else {
+        const species = await axios.get(speciesResponse);
+        character.species = species.data.name;
+      }
 
       setCharacters(character);
     }
   };
+  // console.log(characters);
 
   useEffect(() => {
     getCharacters();
@@ -29,6 +37,7 @@ function App() {
     <div className="App">
       <h1>Starwars</h1>
       <h2>May the force be with you</h2>
+      <Table characters={characters} />
     </div>
   );
 }

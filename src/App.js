@@ -8,9 +8,9 @@ function App() {
   const url = `https://swapi.dev/api/people`;
 
   const getCharacters = async () => {
-    const charData = await axios.get(url);
+    const characters = await axios.get(url);
 
-    for (const character of charData.data.results) {
+    for (const character of characters.data.results) {
       const homeworldResponse = character.homeworld;
       const homeworld = await axios.get(homeworldResponse);
       character.homeworld = homeworld.data.name;

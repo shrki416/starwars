@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 import Table from "./components/Table";
+import Pagination from "./components/Pagination";
 
 function App() {
   const [characters, setCharacters] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
   const url = `https://swapi.dev/api/people`;
 
   const getCharacters = async () => {
@@ -29,7 +30,10 @@ function App() {
       setCharacters(charData);
     }
   };
-  console.log(characters);
+
+  const handleClick = async (e) => {
+    console.log(e.target.textContent);
+  };
 
   useEffect(() => {
     getCharacters();
@@ -39,7 +43,8 @@ function App() {
     <div className="App">
       <h1>Starwars</h1>
       <h2>May the force be with you</h2>
-      <Table characters={characters} />
+      <Table characters={characters} handleClick={handleClick} />
+      <Pagination pagination={handleClick} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-function Table({ characters }) {
+function Table({ characters, handleClick }) {
   // console.log(characters);
   const char = characters.map((character) => (
     <tr key={character.name}>
@@ -27,8 +27,6 @@ function Table({ characters }) {
         </thead>
         <tbody>{char}</tbody>
       </table>
-      <button>PREV</button>
-      <button>NEXT</button>
     </>
   );
 }

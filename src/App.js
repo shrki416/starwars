@@ -5,29 +5,31 @@ import Table from "./components/Table";
 
 function App() {
   const [characters, setCharacters] = useState([]);
+  const [loading, setLoading] = useState(false);
   const url = `https://swapi.dev/api/people`;
 
   const getCharacters = async () => {
-    const characters = await axios.get(url);
+    const characters = await axios.get(url).then(({ data }) => data.results);
 
-    for (const character of characters.data.results) {
-      const homeworldResponse = character.homeworld;
-      const homeworld = await axios.get(homeworldResponse);
-      character.homeworld = homeworld.data.name;
+    for (const character of characters) {
+      const homeworldURL = character.homeworld;
+      const homeworldResponse = await axios.get(homeworldURL);
+      character.homeworld = homeworldResponse.data.name;
 
-      const speciesResponse = character.species;
-      // console.log(speciesResponse);
-      if (!speciesResponse) {
+      const speciesURL = character.species[0];
+      if (!speciesURL) {
         character.species = "Human";
       } else {
-        const species = await axios.get(speciesResponse);
-        character.species = species.data.name;
+        const speciesResponse = await axios
+          .get(speciesURL)
+          .then((res) => res.data);
+        character.species = speciesResponse.name;
       }
-
-      setCharacters(character);
+      const charData = [...characters];
+      setCharacters(charData);
     }
   };
-  // console.log(characters);
+  console.log(characters);
 
   useEffect(() => {
     getCharacters();

@@ -30,7 +30,6 @@ function App() {
 
   const getSpecies = async (character) => {
     const speciesURL = character.species.toString().replace("http", "https");
-    console.log(speciesURL);
     if (!speciesURL) {
       character.species = "Human";
     } else {

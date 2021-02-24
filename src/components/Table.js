@@ -1,7 +1,7 @@
 import React from "react";
 
 function Table({ characters }) {
-  console.log(characters);
+  // console.log(characters);
   const char = characters.map((character) => (
     <tr key={character.name}>
       <td>{character.name}</td>
@@ -13,19 +13,23 @@ function Table({ characters }) {
     </tr>
   ));
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Birth Date</th>
-          <th>Height</th>
-          <th>Mass</th>
-          <th>Homeworld</th>
-          <th>Species</th>
-        </tr>
-      </thead>
-      <tbody>{char}</tbody>
-    </table>
+    <>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Birth Date</th>
+            <th>Height</th>
+            <th>Mass</th>
+            <th>Homeworld</th>
+            <th>Species</th>
+          </tr>
+        </thead>
+        <tbody>{char}</tbody>
+      </table>
+      <button>PREV</button>
+      <button>NEXT</button>
+    </>
   );
 }
 

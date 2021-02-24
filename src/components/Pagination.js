@@ -8,7 +8,7 @@ function Pagination({ pagination }) {
   }
 
   const paginationButtons = pages.map((btn) => (
-    <button key={btn} onClick={pagination}>
+    <button key={btn} onClick={(e) => pagination(e.target.textContent)}>
       {btn}
     </button>
   ));

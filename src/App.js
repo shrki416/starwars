@@ -23,13 +23,14 @@ function App() {
   };
 
   const getHomeWorld = async (character) => {
-    const homeworldURL = character.homeworld;
+    const homeworldURL = character.homeworld.replace("http", "https");
     const homeworldResponse = await axios.get(homeworldURL);
     character.homeworld = homeworldResponse.data.name;
   };
 
   const getSpecies = async (character) => {
-    const speciesURL = character.species[0];
+    const speciesURL = character.species.toString().replace("http", "https");
+    console.log(speciesURL);
     if (!speciesURL) {
       character.species = "Human";
     } else {
@@ -45,7 +46,14 @@ function App() {
       .get(`${url}/?page=${page}`)
       .then(({ data }) => data.results);
 
-    characterData(pageNumber);
+    console.log(pageNumber);
+
+    const pageString = JSON.stringify(pageNumber);
+    localStorage.setItem(`page${page}`, pageString);
+
+    const cachedPages = JSON.parse(localStorage.getItem(`page${page}`));
+
+    characterData(cachedPages);
   };
 
   useEffect(() => {

@@ -6,11 +6,14 @@ import Pagination from "./components/Pagination";
 
 function App() {
   const [characters, setCharacters] = useState([]);
+  const [loading, setLoading] = useState(false);
   const url = `https://swapi.dev/api/people`;
 
   const getCharacters = async () => {
+    setLoading(true);
     const characters = await axios.get(url).then(({ data }) => data.results);
     await characterData(characters);
+    setLoading(false);
   };
 
   const characterData = async (characters) => {
@@ -43,18 +46,20 @@ function App() {
   };
 
   const pagination = async (number) => {
+    setLoading(true);
     const pageNumber = await axios
       .get(`${url}/?page=${number}`)
       .then(({ data }) => data.results);
 
-    console.log(pageNumber);
+    // console.log(pageNumber);
 
-    const pageString = JSON.stringify(pageNumber);
-    localStorage.setItem(`page${number}`, pageString);
+    // const pageString = JSON.stringify(pageNumber);
+    // localStorage.setItem(`page${number}`, pageString);
 
-    const cachedPages = JSON.parse(localStorage.getItem(`page${number}`));
+    // const cachedPages = JSON.parse(localStorage.getItem(`page${number}`));
 
-    characterData(cachedPages);
+    characterData(pageNumber);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -65,8 +70,8 @@ function App() {
     <div className="App">
       <h1>Starwars</h1>
       <h2>May the force be with you</h2>
-      <Table characters={characters} />
-      <Pagination pagination={pagination} />
+      {loading ? <p>... loading</p> : <Table characters={characters} />}
+      <Pagination pagination={pagination} loading={loading} />
     </div>
   );
 }

@@ -22,14 +22,18 @@ function App() {
     }
   };
 
+  const fixURL = (url) => {
+    return url.replace("http", "https");
+  };
+
   const getHomeWorld = async (character) => {
-    const homeworldURL = character.homeworld.replace("http", "https");
+    const homeworldURL = fixURL(character.homeworld);
     const homeworldResponse = await axios.get(homeworldURL);
     character.homeworld = homeworldResponse.data.name;
   };
 
   const getSpecies = async (character) => {
-    const speciesURL = character.species.toString().replace("http", "https");
+    const speciesURL = fixURL(character.species.toString());
     if (!speciesURL) {
       character.species = "Human";
     } else {
@@ -40,17 +44,17 @@ function App() {
     }
   };
 
-  const pagination = async (page) => {
+  const pagination = async (number) => {
     const pageNumber = await axios
-      .get(`${url}/?page=${page}`)
+      .get(`${url}/?page=${number}`)
       .then(({ data }) => data.results);
 
     console.log(pageNumber);
 
     const pageString = JSON.stringify(pageNumber);
-    localStorage.setItem(`page${page}`, pageString);
+    localStorage.setItem(`page${number}`, pageString);
 
-    const cachedPages = JSON.parse(localStorage.getItem(`page${page}`));
+    const cachedPages = JSON.parse(localStorage.getItem(`page${number}`));
 
     characterData(cachedPages);
   };

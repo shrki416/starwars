@@ -22,9 +22,7 @@ function App() {
     }
   };
 
-  const fixURL = (url) => {
-    return url.replace("http", "https");
-  };
+  const fixURL = (url) => url.replace("http", "https");
 
   const getHomeWorld = async (character) => {
     const homeworldURL = fixURL(character.homeworld);

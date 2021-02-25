@@ -17,12 +17,14 @@ function App() {
   };
 
   const characterData = async (characters) => {
+    setLoading(true);
     for (const character of characters) {
       await getHomeWorld(character);
       await getSpecies(character);
       const charData = [...characters];
       setCharacters(charData);
     }
+    setLoading(false);
   };
 
   const fixURL = (url) => url.replace("http", "https");
@@ -46,20 +48,11 @@ function App() {
   };
 
   const pagination = async (number) => {
-    setLoading(true);
-    const pageNumber = await axios
+    const characters = await axios
       .get(`${url}/?page=${number}`)
       .then(({ data }) => data.results);
 
-    // console.log(pageNumber);
-
-    // const pageString = JSON.stringify(pageNumber);
-    // localStorage.setItem(`page${number}`, pageString);
-
-    // const cachedPages = JSON.parse(localStorage.getItem(`page${number}`));
-
-    characterData(pageNumber);
-    setLoading(false);
+    characterData(characters);
   };
 
   useEffect(() => {
@@ -70,7 +63,7 @@ function App() {
     <div className="App">
       <h1>Starwars</h1>
       <h2>May the force be with you</h2>
-      {loading ? <p>... loading</p> : <Table characters={characters} />}
+      {loading ? <p>Loading ...</p> : <Table characters={characters} />}
       <Pagination pagination={pagination} loading={loading} />
     </div>
   );

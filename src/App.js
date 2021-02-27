@@ -6,6 +6,7 @@ import Pagination from "./components/Pagination";
 
 function App() {
   const [characters, setCharacters] = useState([]);
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const url = `https://swapi.dev/api/people`;
 
@@ -55,14 +56,27 @@ function App() {
     characterData(characters);
   };
 
-  useEffect(() => {
-    getCharacters();
-  }, []);
+  const characterSearch = async (e) => {
+    e.preventDefault();
+    const characters = await axios
+      .get(`${url}/?search=${search}`)
+      .then(({ data }) => data.results);
+
+    characterData(characters);
+    setSearch("");
+  };
+
+  useEffect(() => getCharacters(), []);
+
+  const handleChange = (e) => setSearch(e.target.value);
 
   return (
     <div className="App">
       <h1>Starwars</h1>
-      <h2>May the force be with you</h2>
+      <form onSubmit={characterSearch}>
+        <input type="text" value={search} onChange={handleChange} />
+        <button>Search</button>
+      </form>
       {loading ? <p>Loading ...</p> : <Table characters={characters} />}
       <Pagination pagination={pagination} loading={loading} />
     </div>

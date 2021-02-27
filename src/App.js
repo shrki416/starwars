@@ -67,6 +67,7 @@ function App() {
 
     characterData(characters);
     setSearch("");
+    setTimeout(() => window.location.reload(), 5000);
   };
 
   const handleChange = (e) => setSearch(e.target.value);

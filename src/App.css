@@ -4,10 +4,10 @@
   box-sizing: border-box;
 }
 
-body {
-  background-image: url("./assets/stars.jpg");
-  color: #ffe81f;
-}
+/* body { */
+/* background-image: url("./assets/stars.jpg"); */
+/* color: #ffe81f; */
+/* } */
 
 .App {
   text-align: center;

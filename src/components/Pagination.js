@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-function Pagination({ active, pagination }) {
+function Pagination({ pagination }) {
+  const [page, setPage] = useState(1);
   const pages = [];
 
   for (let i = 1; i < 10; i++) {
@@ -10,8 +11,11 @@ function Pagination({ active, pagination }) {
   const paginationButtons = pages.map((btn) => (
     <button
       key={btn}
-      className={active ? "active" : ""}
-      onClick={(e) => pagination(e.target.textContent)}
+      className={`${page === btn ? "active" : ""}`}
+      onClick={(e) => {
+        pagination(e.target.textContent);
+        setPage(parseInt(e.target.textContent));
+      }}
     >
       {btn}
     </button>

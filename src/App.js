@@ -9,7 +9,6 @@ function App() {
   const [characters, setCharacters] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
-  const [active, setActive] = useState(false);
 
   const url = `https://swapi.dev/api/people`;
 
@@ -63,9 +62,9 @@ function App() {
     e.preventDefault();
     const characters = await axios
       .get(`${url}/?search=${search}`)
-      .then(({ data }) => data.results);
+      .then((res) => console.log(res.data));
 
-    characterData(characters);
+    // characterData(characters.results);
     setSearch("");
     setTimeout(() => window.location.reload(), 5000);
   };
@@ -82,7 +81,7 @@ function App() {
         <button>Search</button>
       </form>
       {loading ? <p>Loading ...</p> : <Table characters={characters} />}
-      <Pagination active={active} pagination={pagination} loading={loading} />
+      <Pagination pagination={pagination} loading={loading} />
     </div>
   );
 }

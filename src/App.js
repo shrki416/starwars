@@ -3,6 +3,7 @@ import axios from "axios";
 import "./App.css";
 import Table from "./components/Table";
 import Pagination from "./components/Pagination";
+import { Button } from "@material-ui/core";
 
 function App() {
   const [characters, setCharacters] = useState([]);

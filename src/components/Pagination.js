@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 
-function Pagination({ pagination }) {
+function Pagination({ active, pagination }) {
   const pages = [];
 
   for (let i = 1; i < 10; i++) {
@@ -8,7 +8,11 @@ function Pagination({ pagination }) {
   }
 
   const paginationButtons = pages.map((btn) => (
-    <button key={btn} onClick={(e) => pagination(e.target.textContent)}>
+    <button
+      key={btn}
+      className={active ? "active" : ""}
+      onClick={(e) => pagination(e.target.textContent)}
+    >
       {btn}
     </button>
   ));

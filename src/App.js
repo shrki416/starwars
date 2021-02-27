@@ -8,6 +8,8 @@ function App() {
   const [characters, setCharacters] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
+  const [active, setActive] = useState(false);
+
   const url = `https://swapi.dev/api/people`;
 
   const getCharacters = async () => {
@@ -66,9 +68,9 @@ function App() {
     setSearch("");
   };
 
-  useEffect(() => getCharacters(), []);
-
   const handleChange = (e) => setSearch(e.target.value);
+
+  useEffect(() => getCharacters(), []);
 
   return (
     <div className="App">
@@ -78,7 +80,7 @@ function App() {
         <button>Search</button>
       </form>
       {loading ? <p>Loading ...</p> : <Table characters={characters} />}
-      <Pagination pagination={pagination} loading={loading} />
+      <Pagination active={active} pagination={pagination} loading={loading} />
     </div>
   );
 }

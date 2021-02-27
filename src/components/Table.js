@@ -18,7 +18,7 @@ function Table({ characters, handleClick }) {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Birth Date</th>
+            <th>Born</th>
             <th>Height</th>
             <th>Mass</th>
             <th>Homeworld</th>

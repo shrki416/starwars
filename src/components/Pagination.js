@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 function Pagination({ pagination }) {
   const [page, setPage] = useState(1);
+
   const pages = [];
 
   for (let i = 1; i < 10; i++) {

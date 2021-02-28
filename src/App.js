@@ -35,8 +35,10 @@ function App() {
 
   const getHomeWorld = async (character) => {
     const homeworldURL = fixURL(character.homeworld);
-    const homeworldResponse = await axios.get(homeworldURL);
-    character.homeworld = homeworldResponse.data.name;
+    const homeworldResponse = await axios
+      .get(homeworldURL)
+      .then(({ data }) => data.results);
+    character.homeworld = homeworldResponse.name;
   };
 
   const getSpecies = async (character) => {
@@ -56,7 +58,9 @@ function App() {
 
   const characterSearch = async (e) => {
     e.preventDefault();
-    const characters = await axios.get(`${url}/?search=${search}`);
+    const characters = await axios
+      .get(`${url}/?search=${search}`)
+      .then(({ data }) => data.results);
     characterData(characters.data.results);
     setSearch("");
     setTimeout(() => window.location.reload(), 5000);

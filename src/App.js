@@ -1,9 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import "./App.css";
-import Table from "./components/Table";
+import CharacterTable from "./components/CharacterTable";
+import Loading from "./components/Loading";
+import Form from "./components/Form";
 import Pagination from "./components/Pagination";
-import { Button } from "reactstrap";
+import { Header } from "semantic-ui-react";
+import "./App.css";
 
 function App() {
   const [characters, setCharacters] = useState([]);
@@ -24,8 +26,7 @@ function App() {
     for (const character of characters) {
       await getHomeWorld(character);
       await getSpecies(character);
-      const charData = [...characters];
-      setCharacters(charData);
+      setCharacters([...characters]);
     }
     setLoading(false);
   };
@@ -43,28 +44,20 @@ function App() {
     if (!speciesURL) {
       character.species = "Human";
     } else {
-      const speciesResponse = await axios
-        .get(speciesURL)
-        .then((res) => res.data);
-      character.species = speciesResponse.name;
+      const speciesResponse = await axios.get(speciesURL);
+      character.species = speciesResponse.data.name;
     }
   };
 
   const pagination = async (number) => {
-    const characters = await axios
-      .get(`${url}/?page=${number}`)
-      .then(({ data }) => data.results);
-
-    characterData(characters);
+    const characters = await axios.get(`${url}/?page=${number}`);
+    characterData(characters.data.results);
   };
 
   const characterSearch = async (e) => {
     e.preventDefault();
-    const characters = await axios
-      .get(`${url}/?search=${search}`)
-      .then(({ data }) => data.results);
-
-    characterData(characters);
+    const characters = await axios.get(`${url}/?search=${search}`);
+    characterData(characters.data.results);
     setSearch("");
     setTimeout(() => window.location.reload(), 5000);
   };
@@ -75,12 +68,9 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Starwars</h1>
-      <form onSubmit={characterSearch}>
-        <input type="text" value={search} onChange={handleChange} />
-        <button>Search</button>
-      </form>
-      {loading ? <p>Loading ...</p> : <Table characters={characters} />}
+      <Header as="h1">Starwars</Header>
+      <Form search={characterSearch} handleChange={handleChange} />
+      {loading ? <Loading /> : <CharacterTable characters={characters} />}
       <Pagination pagination={pagination} loading={loading} />
     </div>
   );

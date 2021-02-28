@@ -1,19 +1,7 @@
-*,
-*::after,
-*::before {
-  box-sizing: border-box;
-}
-
-/* body { */
-/* background-image: url("./assets/stars.jpg"); */
-/* color: #ffe81f; */
-/* } */
-
 .App {
   text-align: center;
 }
 
-.active {
-  background-color: black;
-  color: white;
+.mb {
+  margin-bottom: 20px;
 }

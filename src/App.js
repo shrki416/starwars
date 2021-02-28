@@ -16,7 +16,9 @@ function App() {
 
   const getCharacters = async () => {
     setLoading(true);
-    const characters = await axios.get(url).then(({ data }) => data.results);
+    const characters = await axios
+      .get(`https://swapi.dev/api/people`)
+      .then(({ data }) => data.results);
     await characterData(characters);
     setLoading(false);
   };

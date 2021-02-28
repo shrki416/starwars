@@ -16,7 +16,9 @@ function App() {
 
   const getCharacters = async () => {
     setLoading(true);
-    const characters = await axios.get(url).then(({ data }) => data.results);
+    const characters = await axios
+      .get(fixURL(url))
+      .then(({ data }) => data.results);
     await characterData(characters);
     setLoading(false);
   };

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button } from "semantic-ui-react";
 
 function Pagination({ pagination }) {
   const [page, setPage] = useState(1);
@@ -10,16 +11,17 @@ function Pagination({ pagination }) {
   }
 
   const paginationButtons = pages.map((btn) => (
-    <button
+    <Button
+      size="mini"
       key={btn}
-      className={`${page === btn ? "active" : ""}`}
+      className={`${page === btn ? "yellow" : ""}`}
       onClick={(e) => {
         pagination(e.target.textContent);
         setPage(parseInt(e.target.textContent));
       }}
     >
       {btn}
-    </button>
+    </Button>
   ));
 
   return <div>{paginationButtons}</div>;

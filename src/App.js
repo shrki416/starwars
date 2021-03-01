@@ -73,12 +73,12 @@ function App() {
   useEffect(() => getCharacters(), []);
 
   return (
-    <div className="App">
+    <main className="App">
       <Header as="h1">Starwars</Header>
       <Form search={characterSearch} handleChange={handleChange} />
       {loading ? <Loading /> : <CharacterTable characters={characters} />}
       <Pagination pagination={pagination} loading={loading} />
-    </div>
+    </main>
   );
 }
 

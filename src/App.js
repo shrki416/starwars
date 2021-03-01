@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import CharacterTable from "./components/CharacterTable";
 import Loading from "./components/Loading";
 import Form from "./components/Form";
 import Pagination from "./components/Pagination";
 import { Header } from "semantic-ui-react";
 import "./App.css";
+import axios from "axios";
 
 function App() {
   const [characters, setCharacters] = useState([]);
@@ -13,17 +13,17 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const url = `https://swapi.dev/api/people`;
+  const fixURL = (url) => url.replace("http", "https");
 
-  const getCharacters = async () => {
+  function getCharacters() {
     setLoading(true);
-    const characters = await axios
-      .get(`https://swapi.dev/api/people`)
-      .then(({ data }) => data.results);
+    const characters = await axios.get(url).then(({ data }) => data.results);
+    console.log(url);
     await characterData(characters);
     setLoading(false);
-  };
+  }
 
-  const characterData = async (characters) => {
+  function characterData(characters) {
     setLoading(true);
     for (const character of characters) {
       await getHomeWorld(character);
@@ -31,19 +31,17 @@ function App() {
       setCharacters([...characters]);
     }
     setLoading(false);
-  };
+  }
 
-  const fixURL = (url) => url.replace("http", "https");
-
-  const getHomeWorld = async (character) => {
+  function getHomeWorld(character) {
     const homeworldURL = fixURL(character.homeworld);
     const homeworldResponse = await axios
       .get(homeworldURL)
       .then((res) => res.data);
     character.homeworld = homeworldResponse.name;
-  };
+  }
 
-  const getSpecies = async (character) => {
+  function getSpecies(character) {
     const speciesURL = fixURL(character.species.toString());
     if (!speciesURL) {
       character.species = "Human";
@@ -51,24 +49,29 @@ function App() {
       const speciesResponse = await axios.get(speciesURL);
       character.species = speciesResponse.data.name;
     }
-  };
+  }
 
-  const pagination = async (number) => {
+  function pagination(number) {
     const characters = await axios.get(`${url}/?page=${number}`);
+    console.log(`${url}/?page=${number}`);
     characterData(characters.data.results);
-  };
+  }
 
-  const characterSearch = async (e) => {
+  function characterSearch(e) {
     e.preventDefault();
     const characters = await axios
       .get(`${url}/?search=${search}`)
       .then(({ data }) => data.results);
-    characterData(characters.data.results);
+
+    console.log(`${url}/?search=${search}`);
+    characterData(characters);
     setSearch("");
     setTimeout(() => window.location.reload(), 5000);
-  };
+  }
 
-  const handleChange = (e) => setSearch(e.target.value);
+  function handleChange(e) {
+    return setSearch(e.target.value);
+  }
 
   useEffect(() => getCharacters(), []);
 

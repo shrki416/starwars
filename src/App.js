@@ -13,12 +13,14 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const url = `https://swapi.dev/api/people`;
-  // const fixURL = (url) => url.replace("http", "https");
+  const fixURL = (url) => url.replace("http", "https");
 
   async function getCharacters() {
     setLoading(true);
-    const characters = await axios.get(url).then(({ data }) => data.results);
-    console.log(url);
+    const characters = await axios
+      .get(`${url}/`)
+      .then(({ data }) => data.results);
+    console.log(characters);
     await characterData(characters);
     setLoading(false);
   }
@@ -34,8 +36,7 @@ function App() {
   }
 
   async function getHomeWorld(character) {
-    // const homeworldURL = fixURL(character.homeworld);
-    const homeworldURL = character.homeworld.replace("http", "https");
+    const homeworldURL = fixURL(character.homeworld);
     const homeworldResponse = await axios
       .get(homeworldURL)
       .then((res) => res.data);
@@ -43,15 +44,12 @@ function App() {
   }
 
   async function getSpecies(character) {
-    // const speciesURL = fixURL(character.species.toString());
-    const speciesURL = character.species[0];
-
+    const speciesURL = fixURL(character.species.toString());
+    console.log(speciesURL);
     if (!speciesURL) {
       character.species = "Human";
     } else {
-      const speciesResponse = await axios.get(
-        speciesURL.replace("http", "https")
-      );
+      const speciesResponse = await axios.get(speciesURL);
       character.species = speciesResponse.data.name;
     }
   }

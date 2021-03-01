@@ -15,17 +15,16 @@ function App() {
   const url = `https://swapi.dev/api/people`;
   const fixURL = (url) => url.replace("http", "https");
 
-  async function getCharacters() {
+  const getCharacters = async () => {
     setLoading(true);
     const characters = await axios
       .get(`${url}/`)
       .then(({ data }) => data.results);
-    console.log(characters);
     await characterData(characters);
     setLoading(false);
-  }
+  };
 
-  async function characterData(characters) {
+  const characterData = async (characters) => {
     setLoading(true);
     for (const character of characters) {
       await getHomeWorld(character);
@@ -33,33 +32,32 @@ function App() {
       setCharacters([...characters]);
     }
     setLoading(false);
-  }
+  };
 
-  async function getHomeWorld(character) {
+  const getHomeWorld = async (character) => {
     const homeworldURL = fixURL(character.homeworld);
     const homeworldResponse = await axios
       .get(homeworldURL)
       .then((res) => res.data);
     character.homeworld = homeworldResponse.name;
-  }
+  };
 
-  async function getSpecies(character) {
+  const getSpecies = async (character) => {
     const speciesURL = fixURL(character.species.toString());
-    console.log(speciesURL);
     if (!speciesURL) {
       character.species = "Human";
     } else {
       const speciesResponse = await axios.get(speciesURL);
       character.species = speciesResponse.data.name;
     }
-  }
+  };
 
-  async function pagination(number) {
+  const pagination = async (number) => {
     const characters = await axios.get(`${url}/?page=${number}`);
     characterData(characters.data.results);
-  }
+  };
 
-  async function characterSearch(e) {
+  const characterSearch = async (e) => {
     e.preventDefault();
     const characters = await axios
       .get(`${url}/?search=${search}`)
@@ -68,11 +66,9 @@ function App() {
     characterData(characters);
     setSearch("");
     setTimeout(() => window.location.reload(), 5000);
-  }
+  };
 
-  function handleChange(e) {
-    return setSearch(e.target.value);
-  }
+  const handleChange = (e) => setSearch(e.target.value);
 
   useEffect(() => getCharacters(), []);
 

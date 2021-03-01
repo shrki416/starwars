@@ -13,9 +13,9 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const url = `https://swapi.dev/api/people`;
-  const fixURL = (url) => url.replace("http", "https");
+  // const fixURL = (url) => url.replace("http", "https");
 
-  function getCharacters() {
+  async function getCharacters() {
     setLoading(true);
     const characters = await axios.get(url).then(({ data }) => data.results);
     console.log(url);
@@ -23,7 +23,7 @@ function App() {
     setLoading(false);
   }
 
-  function characterData(characters) {
+  async function characterData(characters) {
     setLoading(true);
     for (const character of characters) {
       await getHomeWorld(character);
@@ -33,37 +33,40 @@ function App() {
     setLoading(false);
   }
 
-  function getHomeWorld(character) {
-    const homeworldURL = fixURL(character.homeworld);
+  async function getHomeWorld(character) {
+    // const homeworldURL = fixURL(character.homeworld);
+    const homeworldURL = character.homeworld.replace("http", "https");
     const homeworldResponse = await axios
       .get(homeworldURL)
       .then((res) => res.data);
     character.homeworld = homeworldResponse.name;
   }
 
-  function getSpecies(character) {
-    const speciesURL = fixURL(character.species.toString());
+  async function getSpecies(character) {
+    // const speciesURL = fixURL(character.species.toString());
+    const speciesURL = character.species[0];
+
     if (!speciesURL) {
       character.species = "Human";
     } else {
-      const speciesResponse = await axios.get(speciesURL);
+      const speciesResponse = await axios.get(
+        speciesURL.replace("http", "https")
+      );
       character.species = speciesResponse.data.name;
     }
   }
 
-  function pagination(number) {
+  async function pagination(number) {
     const characters = await axios.get(`${url}/?page=${number}`);
-    console.log(`${url}/?page=${number}`);
     characterData(characters.data.results);
   }
 
-  function characterSearch(e) {
+  async function characterSearch(e) {
     e.preventDefault();
     const characters = await axios
       .get(`${url}/?search=${search}`)
       .then(({ data }) => data.results);
 
-    console.log(`${url}/?search=${search}`);
     characterData(characters);
     setSearch("");
     setTimeout(() => window.location.reload(), 5000);

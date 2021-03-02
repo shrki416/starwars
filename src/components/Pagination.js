@@ -14,6 +14,7 @@ function Pagination({ pagination }) {
     <Button
       size="mini"
       key={btn}
+      id="swFont"
       className={`${page === btn ? "yellow" : ""}`}
       onClick={(e) => {
         pagination(e.target.textContent);

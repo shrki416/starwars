@@ -3,16 +3,16 @@
   letter-spacing: 0.25em;
 }
 
-.characters {
-  font-family: Starjedi;
-  font-size: 1.25em;
-  letter-spacing: 0.1em;
-}
-
 .App {
   text-align: center;
 }
 
 .mb {
   margin-bottom: 20px;
+}
+
+#swFont {
+  font-family: Starjedi;
+  font-size: 1.25em;
+  letter-spacing: 0.1em;
 }

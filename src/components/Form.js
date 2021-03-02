@@ -10,7 +10,6 @@ function Form({ search, handleChange }) {
           iconPosition="left"
           placeholder="Character Search"
           type="text"
-          //   value={search}
           onChange={handleChange}
         />
       </Segment>

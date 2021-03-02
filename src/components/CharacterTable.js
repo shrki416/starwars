@@ -13,7 +13,7 @@ function CharacterTable({ characters }) {
     </Table.Row>
   ));
   return (
-    <Container className="mb">
+    <Container className="mb characters">
       <Table className="yellow">
         <Table.Header>
           <Table.Row>

@@ -4,6 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "semantic-ui-css/semantic.min.css";
+import "./fonts/Starjedi.ttf";
+import "./fonts/Starjout.ttf";
 
 ReactDOM.render(
   <React.StrictMode>

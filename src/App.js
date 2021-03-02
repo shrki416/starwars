@@ -74,7 +74,7 @@ function App() {
 
   return (
     <main className="App">
-      <Header as="h1">Starwars</Header>
+      <h1 className="header">Starwars</h1>
       <Form search={characterSearch} handleChange={handleChange} />
       {loading ? <Loading /> : <CharacterTable characters={characters} />}
       <Pagination pagination={pagination} loading={loading} />

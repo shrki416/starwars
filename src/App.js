@@ -3,23 +3,21 @@ import CharacterTable from "./components/CharacterTable";
 import Loading from "./components/Loading";
 import Form from "./components/Form";
 import Pagination from "./components/Pagination";
-import "./App.css";
+import API from "./service/api";
 import axios from "axios";
+import "./App.css";
 
 function App() {
   const [characters, setCharacters] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const url = `https://swapi.dev/api/people`;
   const fixURL = (url) => url.replace("http", "https");
 
   const getCharacters = async () => {
     setLoading(true);
-    const characters = await axios
-      .get(`${url}/`)
-      .then(({ data }) => data.results);
-    await characterData(characters);
+    const characters = await API.get(`/`);
+    await characterData(characters.data.results);
     setLoading(false);
   };
 
@@ -35,10 +33,8 @@ function App() {
 
   const getHomeWorld = async (character) => {
     const homeworldURL = fixURL(character.homeworld);
-    const homeworldResponse = await axios
-      .get(homeworldURL)
-      .then((res) => res.data);
-    character.homeworld = homeworldResponse.name;
+    const homeworldResponse = await axios.get(homeworldURL);
+    character.homeworld = homeworldResponse.data.name;
   };
 
   const getSpecies = async (character) => {
@@ -52,17 +48,14 @@ function App() {
   };
 
   const pagination = async (number) => {
-    const characters = await axios.get(`${url}/?page=${number}`);
+    const characters = await API.get(`/?page=${number}`);
     characterData(characters.data.results);
   };
 
   const characterSearch = async (e) => {
     e.preventDefault();
-    const characters = await axios
-      .get(`${url}/?search=${search}`)
-      .then(({ data }) => data.results);
-
-    characterData(characters);
+    const characters = await API.get(`/?search=${search}`);
+    characterData(characters.data.results);
     setSearch("");
     setTimeout(() => window.location.reload(), 5000);
   };

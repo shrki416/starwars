@@ -3,7 +3,6 @@ import CharacterTable from "./components/CharacterTable";
 import Loading from "./components/Loading";
 import Form from "./components/Form";
 import Pagination from "./components/Pagination";
-import { Header } from "semantic-ui-react";
 import "./App.css";
 import axios from "axios";
 

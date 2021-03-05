@@ -6,7 +6,7 @@ import { ReactComponent as Rebels } from "../images/rebels.svg";
 import { ReactComponent as Empire } from "../images/empire.svg";
 
 const ToggleContainer = styled.button`
-  background: ${({ theme }) => theme.gradient};
+  background: ${({ theme }) => theme.body};
   border: 2px solid ${({ theme }) => theme.toggleBorder};
   border-radius: 30px;
   cursor: pointer;
@@ -16,7 +16,8 @@ const ToggleContainer = styled.button`
   margin: 0 auto;
   overflow: hidden;
   padding: 0.5rem;
-  position: relative;
+  position: fixed;
+  /* position: relative; */
   width: 8rem;
   height: 4rem;
 

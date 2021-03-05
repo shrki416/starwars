@@ -12,10 +12,10 @@ function Pagination({ pagination }) {
 
   const paginationButtons = pages.map((btn) => (
     <Button
-      size="mini"
       key={btn}
-      id="swFont"
-      className={`${page === btn ? "yellow" : ""}`}
+      size="medium"
+      id="pagination"
+      className={`${page === btn && "yellow"}`}
       onClick={(e) => {
         pagination(e.target.textContent);
         setPage(parseInt(e.target.textContent));

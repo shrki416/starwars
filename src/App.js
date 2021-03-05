@@ -7,8 +7,7 @@ import Toggle from "./components/Toggle";
 import API from "./service/api";
 import axios from "axios";
 import { useDarkMode } from "./components/useDarkMode";
-import "./App.css";
-
+import starwars from "./images/starwars_logo.png";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./components/Theme";
 import { GlobalStyles } from "./components/Global";
@@ -18,10 +17,6 @@ function App() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [theme, toggleTheme] = useDarkMode();
-
-  // if (!componentMounted) {
-  //   return <div />;
-  // }
 
   const fixURL = (url) => url.replace("http", "https");
 
@@ -81,11 +76,14 @@ function App() {
     <ThemeProvider theme={themeMode}>
       <main className="App">
         <GlobalStyles />
-        <h1 className="header">Starwars</h1>
         <Toggle theme={theme} toggleTheme={toggleTheme} />
-        <h3>
-          It's the {theme === "light" ? "Rebel Alliance" : "Galactic Empire"}!
-        </h3>
+        <img src={starwars} alt="starwars" />
+        <h5>
+          {theme === "light"
+            ? "You're part of the Rebel Alliance, good choice"
+            : "Don't get seduced by the darkside"}
+          !
+        </h5>
         <Form search={characterSearch} handleChange={handleChange} />
         {loading ? <Loading /> : <CharacterTable characters={characters} />}
         <Pagination pagination={pagination} loading={loading} />

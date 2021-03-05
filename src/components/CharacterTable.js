@@ -1,5 +1,6 @@
 import React from "react";
 import { Table, Container } from "semantic-ui-react";
+// import { lightTheme, darkTheme } from "./components/Theme";
 
 function CharacterTable({ characters }) {
   const char = characters.map((character) => (
@@ -13,8 +14,8 @@ function CharacterTable({ characters }) {
     </Table.Row>
   ));
   return (
-    <Container className="mb" id="swFont">
-      <Table className="yellow">
+    <Container className="mb">
+      <Table basic="very" id="swFont" className="text-color">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Name</Table.HeaderCell>

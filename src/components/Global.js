@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
-    *,
+  *,
   *::after,
   *::before {
     box-sizing: border-box;
@@ -17,25 +17,36 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.text};
     padding: 0;
     margin: 0;
-    font-family: BlinkMacSystemFont, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: Starjedi, BlinkMacSystemFont, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     transition: all 0.25s linear;
   }
 
-  footer {
-    position: absolute;
-    bottom: 5%;
-    left: 50%;
-    transform: translateX(-50%);
+  form, .mb {
+    margin-bottom: 2.5em;
   }
 
-  small {
-    display: block;
+  .header, h5 {
+    font-family: Starjedi;
+    letter-spacing: 0.25em;
   }
 
-  button {
-    display: block;
+  .App {
+    text-align: center;
+  }
+
+  #pagination {
+    font-family: Starjedi;
+    font-size: 1.25em;
+    background: ${({ theme }) => theme.pagination};
+  }
+
+  #swFont {
+    font-family: Starjedi;
+    font-size: 1.25em;
+    letter-spacing: 0.1em;
+    color: ${({ theme }) => theme.text};
   }
 
   a {
     color: ${({ theme }) => theme.text};
-  }`;
+}`;

@@ -6,7 +6,8 @@ Checkout the project [HERE](https://aa-starwars.netlify.app/)
 
 A small React App to practice working with APIs
 
-![image](src/images/starwars.png)
+![image](src/images/starwars_dark.png)
+![image](src/images/starwars_light.png)
 
 ## Summary
 

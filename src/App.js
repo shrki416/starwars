@@ -61,6 +61,7 @@ function App() {
   const characterSearch = async (e) => {
     e.preventDefault();
     const characters = await API.get(`/?search=${search}`);
+    console.log(characters.data.count);
     characterData(characters.data.results);
     setSearch("");
     setTimeout(() => window.location.reload(), 5000);
@@ -74,8 +75,8 @@ function App() {
 
   return (
     <ThemeProvider theme={themeMode}>
+      <GlobalStyles />
       <main className="App">
-        <GlobalStyles />
         <Toggle theme={theme} toggleTheme={toggleTheme} />
         <img src={starwars} alt="starwars" />
         <h5>

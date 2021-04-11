@@ -18,7 +18,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [theme, toggleTheme] = useDarkMode();
 
-  const fixURL = (url) => url.replace("http", "https");
+  // const fixURL = (url) => url.replace("http", "https");
 
   const getCharacters = async () => {
     setLoading(true);
@@ -38,13 +38,15 @@ function App() {
   };
 
   const getHomeWorld = async (character) => {
-    const homeworldURL = fixURL(character.homeworld);
+    // const homeworldURL = fixURL(character.homeworld);
+    const homeworldURL = character.homeworld;
     const homeworldResponse = await axios.get(homeworldURL);
     character.homeworld = homeworldResponse.data.name;
   };
 
   const getSpecies = async (character) => {
-    const speciesURL = fixURL(character.species.toString());
+    // const speciesURL = fixURL(character.species.toString());
+    const speciesURL = character.species.toString();
     if (!speciesURL) {
       character.species = "Human";
     } else {
@@ -61,7 +63,6 @@ function App() {
   const characterSearch = async (e) => {
     e.preventDefault();
     const characters = await API.get(`/?search=${search}`);
-    console.log(characters.data.count);
     characterData(characters.data.results);
     setSearch("");
     setTimeout(() => window.location.reload(), 5000);

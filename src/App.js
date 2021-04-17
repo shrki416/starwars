@@ -20,8 +20,6 @@ function App() {
 
   const getCharacters = useRef(() => {});
 
-  // const fixURL = (url) => url.replace("http", "https");
-
   getCharacters.current = async () => {
     setLoading(true);
     const characters = await API.get(`/`);
@@ -40,21 +38,18 @@ function App() {
   };
 
   const getHomeWorld = async (character) => {
-    // const homeworldURL = fixURL(character.homeworld);
     const homeworldURL = character.homeworld;
     const homeworldResponse = await axios.get(homeworldURL);
     character.homeworld = homeworldResponse.data.name;
   };
 
   const getSpecies = async (character) => {
-    // const speciesURL = fixURL(character.species.toString());
     const speciesURL = character.species.toString();
     if (!speciesURL) {
       character.species = "Human";
-    } else {
-      const speciesResponse = await axios.get(speciesURL);
-      character.species = speciesResponse.data.name;
     }
+    const speciesResponse = await axios.get(speciesURL);
+    character.species = speciesResponse.data.name;
   };
 
   const pagination = async (number) => {
@@ -79,7 +74,6 @@ function App() {
       ? "You're part of the Rebel Alliance, good choice"
       : "Don't get seduced by the darkside";
 
-  // useEffect(() => getCharacters(), []);
   useEffect(() => {
     getCharacters.current();
   }, [getCharacters]);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CharacterTable from "./components/CharacterTable";
 import Loading from "./components/Loading";
 import Form from "./components/Form";
@@ -18,9 +18,11 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [theme, toggleTheme] = useDarkMode();
 
+  const getCharacters = useRef(() => {});
+
   // const fixURL = (url) => url.replace("http", "https");
 
-  const getCharacters = async () => {
+  getCharacters.current = async () => {
     setLoading(true);
     const characters = await API.get(`/`);
     await characterData(characters.data.results);
@@ -72,7 +74,15 @@ function App() {
 
   const themeMode = theme === "light" ? lightTheme : darkTheme;
 
-  useEffect(() => getCharacters(), []);
+  const iconToggle =
+    theme === "light"
+      ? "You're part of the Rebel Alliance, good choice"
+      : "Don't get seduced by the darkside";
+
+  // useEffect(() => getCharacters(), []);
+  useEffect(() => {
+    getCharacters.current();
+  }, [getCharacters]);
 
   return (
     <ThemeProvider theme={themeMode}>
@@ -80,12 +90,7 @@ function App() {
       <main className="App">
         <Toggle theme={theme} toggleTheme={toggleTheme} />
         <img src={starwars} alt="starwars" />
-        <h5>
-          {theme === "light"
-            ? "You're part of the Rebel Alliance, good choice"
-            : "Don't get seduced by the darkside"}
-          !
-        </h5>
+        <h5>{iconToggle}!</h5>
         <Form search={characterSearch} handleChange={handleChange} />
         {loading ? <Loading /> : <CharacterTable characters={characters} />}
         <Pagination pagination={pagination} loading={loading} />

@@ -18,7 +18,11 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [theme, toggleTheme] = useDarkMode();
 
-  const getCharacters = useRef(() => {});
+  const getCharacters = useRef();
+
+  useEffect(() => {
+    getCharacters.current();
+  }, [getCharacters]);
 
   getCharacters.current = async () => {
     setLoading(true);
@@ -73,10 +77,6 @@ function App() {
     theme === "light"
       ? "You're part of the Rebel Alliance, good choice"
       : "Don't get seduced by the darkside";
-
-  useEffect(() => {
-    getCharacters.current();
-  }, [getCharacters]);
 
   return (
     <ThemeProvider theme={themeMode}>

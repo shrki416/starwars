@@ -49,9 +49,8 @@ function App() {
 
   const getSpecies = async (character) => {
     const speciesURL = character.species.toString();
-    if (!speciesURL) {
-      character.species = "Human";
-    }
+    if (!character.species) return "Human";
+
     const speciesResponse = await axios.get(speciesURL);
     character.species = speciesResponse.data.name;
   };

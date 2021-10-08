@@ -19,6 +19,7 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0;
     font-family: Starjedi, BlinkMacSystemFont, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     transition: all 0.25s linear;
+    font-size: 12px;
   }
 
   form, .mb {

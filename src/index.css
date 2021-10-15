@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Starjedi";
-  src: local("Starjedi"), url("./fonts/Starjedi.ttf") format("truetype");
+  src: local("Starjedi"), url("./assets/fonts/Starjedi.ttf") format("truetype");
   font-weight: normal;
 }
 

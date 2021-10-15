@@ -5,12 +5,13 @@ import Form from "./components/Form";
 import Pagination from "./components/Pagination";
 import Toggle from "./components/Toggle";
 import API from "./service/api";
-import axios from "axios";
+// import axios from "axios";
 import { useDarkMode } from "./components/useDarkMode";
-import starwars from "./images/starwars_logo.png";
+import starwars from "./assets/images/starwars_logo.png";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./components/Theme";
 import { GlobalStyles } from "./components/Global";
+import { planet, species } from "./components/swapi";
 
 function App() {
   const [characters, setCharacters] = useState([]);
@@ -43,7 +44,7 @@ function App() {
 
   const getHomeWorld = async (character) => {
     const homeworldURL = character.homeworld;
-    const homeworldResponse = await axios.get(homeworldURL);
+    const homeworldResponse = await planet(homeworldURL);
     character.homeworld = homeworldResponse.data.name;
   };
 
@@ -51,7 +52,7 @@ function App() {
     const speciesURL = character.species.toString();
     if (!character.species) return "Human";
 
-    const speciesResponse = await axios.get(speciesURL);
+    const speciesResponse = await species(speciesURL);
     character.species = speciesResponse.data.name;
   };
 

@@ -2,8 +2,8 @@ import React from "react";
 import { func, string } from "prop-types";
 import styled from "styled-components";
 
-import { ReactComponent as Rebels } from "../images/rebels.svg";
-import { ReactComponent as Empire } from "../images/empire.svg";
+import { ReactComponent as Rebels } from "../assets/images/rebels.svg";
+import { ReactComponent as Empire } from "../assets/images/empire.svg";
 
 const ToggleContainer = styled.button`
   background: ${({ theme }) => theme.body};

@@ -1,9 +1,9 @@
-import React from "react";
 import { func, string } from "prop-types";
-import styled from "styled-components";
 
-import { ReactComponent as Rebels } from "../assets/images/rebels.svg";
 import { ReactComponent as Empire } from "../assets/images/empire.svg";
+import React from "react";
+import { ReactComponent as Rebels } from "../assets/images/rebels.svg";
+import styled from "styled-components";
 
 const ToggleContainer = styled.button`
   background: ${({ theme }) => theme.body};
@@ -17,7 +17,6 @@ const ToggleContainer = styled.button`
   overflow: hidden;
   padding: 0.5rem;
   position: fixed;
-  /* position: relative; */
   width: 8rem;
   height: 4rem;
 

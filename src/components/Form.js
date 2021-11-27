@@ -1,5 +1,6 @@
-import React from "react";
 import { Input, Segment } from "semantic-ui-react";
+
+import React from "react";
 
 function Form({ search, handleChange }) {
   return (
